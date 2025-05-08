@@ -1,3 +1,5 @@
+import Popup from "./Popup/Popup";
+
 function Main() {
   return (
     <main className="main page__main">
