@@ -80,6 +80,7 @@
   grid-column: 2/3;
   justify-self: end;
   margin-right: 18px;
+  background-color: aquamarine;
 }
 
 .button_type_like_inactive {
