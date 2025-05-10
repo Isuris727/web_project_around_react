@@ -9,14 +9,16 @@
   /* display: none; */
 }
 
-.popup_opened {
+/* .popup_opened {
   display: flex;
-}
+} */
 
 .popup__container {
+  max-width: 100%;
   margin: auto;
   display: flex;
   flex-direction: column;
+  align-content: stretch;
 }
 
 .popup__form {
