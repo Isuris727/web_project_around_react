@@ -62,7 +62,11 @@ function Main() {
               alt="editar"
               src="./../images/Vector_edit.png"
             />
-            <img className="profile__img" alt="Imagen de perfil" src=" " />
+            <img
+              className="profile__img"
+              alt="Imagen de perfil"
+              src="./../public/default_avatar.png"
+            />
           </div>
           <div className="profile__info">
             <div className="profile__title">
