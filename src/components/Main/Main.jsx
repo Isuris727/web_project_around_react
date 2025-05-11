@@ -37,7 +37,6 @@ function Main() {
     title: "Editar perfil",
     children: <EditProfile />,
   };
-  // const openImage = { children: <ImagePopup /> };
 
   function handleOpenPopup(popup) {
     setPopup(popup);
@@ -65,7 +64,7 @@ function Main() {
             <img
               className="profile__img"
               alt="Imagen de perfil"
-              src="./../public/default_avatar.png"
+              src="/default_avatar.png"
             />
           </div>
           <div className="profile__info">
