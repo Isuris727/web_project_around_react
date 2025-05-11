@@ -35,8 +35,7 @@
   position: relative;
   width: 41.7px;
   height: 41.7px;
-  left: 200px;
-  align-self: center;
+  align-self: flex-end;
   border: none;
 }
 
@@ -133,14 +132,5 @@
   }
   .button_type_add {
     width: 282px;
-  }
-
-  /* .button_type_close {
-    top: -23.62px;
-  } */
-}
-@media screen and (max-width: 435px) {
-  .button_type_close {
-    left: 100px;
   }
 }

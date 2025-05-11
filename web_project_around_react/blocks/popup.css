@@ -6,15 +6,11 @@
   top: 0;
   left: 0;
   z-index: 2;
-  /* display: none; */
 }
 
-/* .popup_opened {
-  display: flex;
-} */
-
 .popup__container {
-  max-width: 100%;
+  width: 75%;
+  max-width: 880px;
   margin: auto;
   display: flex;
   flex-direction: column;
@@ -25,10 +21,14 @@
   margin: auto;
 }
 
-.popup__img {
+.popup__img-container {
+  margin: auto;
   max-width: 75vw;
   max-height: 75vh;
-  display: block;
+}
+
+.popup__img {
+  max-width: 100%;
 }
 
 .popup__card-name {
