@@ -3,6 +3,7 @@ import NewCard from "./Popup/Form/NewCard/NewCard";
 import EditProfile from "./Popup/Form/EditProfile/EditProfile";
 import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
+import ImagePopup from "./Popup/ImagePopup";
 import { useState } from "react";
 
 const cards = [
@@ -24,8 +25,6 @@ const cards = [
   },
 ];
 
-console.log(cards);
-
 function Main() {
   const [popup, setPopup] = useState(null);
 
@@ -38,6 +37,7 @@ function Main() {
     title: "Editar perfil",
     children: <EditProfile />,
   };
+  // const openImage = { children: <ImagePopup /> };
 
   function handleOpenPopup(popup) {
     setPopup(popup);
@@ -101,7 +101,7 @@ function Main() {
       <section className="elements">
         <ul className="elements__cards">
           {cards.map((card) => (
-            <Card key={card._id} card={card} />
+            <Card key={card._id} card={card} openImagePopup={handleOpenPopup} />
           ))}
         </ul>
       </section>

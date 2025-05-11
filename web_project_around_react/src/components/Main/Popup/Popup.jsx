@@ -14,7 +14,7 @@ function Popup(props) {
             src="./../images/Icon_close.png"
           />
         </button>
-        <h2 className="form__title">{title}</h2>
+        {title && <h2 className="form__title">{title}</h2>}
         {children}
       </div>
     </div>
