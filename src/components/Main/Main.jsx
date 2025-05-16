@@ -3,30 +3,26 @@ import NewCard from "./Popup/Form/NewCard/NewCard";
 import EditProfile from "./Popup/Form/EditProfile/EditProfile";
 import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
+import apiClass from "../../utils/api";
 import ImagePopup from "./Popup/ImagePopup";
-import { useState } from "react";
-
-const cards = [
-  {
-    isLiked: false,
-    _id: "5d1f0611d321eb4bdcd707dd",
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:10:57.741Z",
-  },
-  {
-    isLiked: false,
-    _id: "5d1f064ed321eb4bdcd707de",
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-    owner: "5d1f0611d321eb4bdcd707dd",
-    createdAt: "2019-07-05T08:11:58.324Z",
-  },
-];
+import { useState, useEffect } from "react";
 
 function Main() {
   const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState([]);
+
+  useEffect(() => {
+    async function obtainCardsData() {
+      try {
+        const cardsData = await apiClass.getCardsData();
+        const cards = await cardsData.reverse();
+        setCards(cards);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    obtainCardsData();
+  }, []);
 
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
   const editAvatarPopup = {
