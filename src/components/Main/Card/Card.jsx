@@ -5,6 +5,9 @@ function Card(props) {
   const { openImagePopup } = props;
 
   const openImage = { children: <ImagePopup name={name} link={link} /> };
+  const cardLikeButtonClassName = `button button_type_like ${
+    isLiked ? "button_type_like_active" : "button_type_like_inactive"
+  }`;
 
   return (
     <li className="elements__card card" id={_id}>
@@ -22,7 +25,7 @@ function Card(props) {
         }}
       />
       <p className="card__name">{name}</p>
-      <button className="button button_type_like button_type_like_inactive" />
+      <button className={cardLikeButtonClassName} />
     </li>
   );
 }

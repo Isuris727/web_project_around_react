@@ -16,7 +16,8 @@ function Main() {
     async function obtainCardsData() {
       try {
         const cardsData = await apiClass.getCardsData();
-        const cards = await cardsData.reverse();
+        const cards = await cardsData;
+        // const cards = await cardsData.reverse();
         setCards(cards);
       } catch (error) {
         console.log(error);
