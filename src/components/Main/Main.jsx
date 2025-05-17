@@ -4,12 +4,13 @@ import EditProfile from "./Popup/Form/EditProfile/EditProfile";
 import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
 import apiClass from "../../utils/api";
-import ImagePopup from "./Popup/ImagePopup";
-import { useState, useEffect } from "react";
+import { CurrentUserContext } from "../../contexts/currentUserContext";
+import { useState, useEffect, useContext } from "react";
 
 function Main() {
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+  const currentUser = useContext(CurrentUserContext);
 
   useEffect(() => {
     async function obtainCardsData() {
@@ -60,12 +61,12 @@ function Main() {
             <img
               className="profile__img"
               alt="Imagen de perfil"
-              src="/default_avatar.png"
+              src={currentUser.avatar}
             />
           </div>
           <div className="profile__info">
             <div className="profile__title">
-              <h1 className="profile__name">Name</h1>
+              <h1 className="profile__name">{currentUser.name}</h1>
               <button
                 className="button button_type_edit"
                 type="button"
@@ -80,7 +81,7 @@ function Main() {
                 />
               </button>
             </div>
-            <p className="profile__about-me">About</p>
+            <p className="profile__about-me">{currentUser.about}</p>
           </div>
         </div>
         <button
