@@ -2,7 +2,7 @@ import ImagePopup from "../Popup/ImagePopup";
 
 function Card(props) {
   const { name, link, isLiked, _id } = props.card;
-  const { openImagePopup } = props;
+  const { openImagePopup, onCardLike } = props;
 
   const openImage = { children: <ImagePopup name={name} link={link} /> };
   const cardLikeButtonClassName = `button button_type_like ${
@@ -25,7 +25,12 @@ function Card(props) {
         }}
       />
       <p className="card__name">{name}</p>
-      <button className={cardLikeButtonClassName} />
+      <button
+        className={cardLikeButtonClassName}
+        onClick={(card) => {
+          onCardLike(props.card);
+        }}
+      />
     </li>
   );
 }

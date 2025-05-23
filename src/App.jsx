@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./components/Header/Header";
 import Main from "./components/Main/Main";
 import Footer from "./components/Footer/Footer";
-import apiClass from "./utils/api.js";
+import api from "./utils/api.js";
 import { CurrentUserContext } from "./contexts/currentUserContext";
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     async function obtainUser() {
       try {
-        const user = await apiClass.getUserInfo();
+        const user = await api.getUserInfo();
 
         setCurrentUser(user);
       } catch (error) {

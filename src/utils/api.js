@@ -3,15 +3,17 @@ class Api {
     this.url = url;
   }
 
-  _fetchData(endpoint, requestMethod, body) {
-    return fetch(`${this.url}${endpoint}`, {
+  async _fetchData(endpoint, requestMethod, body) {
+    const response = await fetch(`${this.url}${endpoint}`, {
       method: requestMethod,
       headers: {
         authorization: "94c8a629-44c5-4556-b294-d569e5d5ac14",
         "content-type": "application/json",
       },
       body: JSON.stringify(body),
-    }).then((Response) => (Response.ok ? Response.json() : Response.reject));
+    });
+    const data = response.ok ? response.json() : response.reject;
+    return data;
   }
 
   getCardsData() {
@@ -34,10 +36,10 @@ class Api {
     return this._fetchData("cards", "POST", newCardData);
   }
 
-  likeCard(cardID) {
+  _likeCard(cardID) {
     return this._fetchData(`cards/${cardID}/likes`, "PUT");
   }
-  dislikeCard(cardID) {
+  _dislikeCard(cardID) {
     return this._fetchData(`cards/${cardID}/likes`, "DELETE");
   }
 
@@ -46,6 +48,6 @@ class Api {
   }
 }
 
-const apiClass = new Api("https://around-api.es.tripleten-services.com/v1/");
+const api = new Api("https://around-api.es.tripleten-services.com/v1/");
 
-export default apiClass;
+export default api;

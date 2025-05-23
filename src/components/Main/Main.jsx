@@ -3,29 +3,39 @@ import NewCard from "./Popup/Form/NewCard/NewCard";
 import EditProfile from "./Popup/Form/EditProfile/EditProfile";
 import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
-import apiClass from "../../utils/api";
+import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/currentUserContext";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, useCallback } from "react";
 
 function Main() {
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
   const currentUser = useContext(CurrentUserContext);
 
+  // --------- CARDS -------
   useEffect(() => {
     async function obtainCardsData() {
       try {
-        const cardsData = await apiClass.getCardsData();
-        const cards = await cardsData;
-        // const cards = await cardsData.reverse();
-        setCards(cards);
+        const cardsData = await api.getCardsData();
+
+        return setCards(cardsData);
       } catch (error) {
         console.log(error);
       }
     }
     obtainCardsData();
-  }, []);
+  }, [isLiked]);
 
+  const handleCardLike = async (card) => {
+    card._id && card.isLiked
+      ? await api._dislikeCard(card._id)
+      : await api._likeCard(card._id);
+
+    setIsLiked(!isLiked);
+  };
+
+  // --------- POPUPS -------
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
@@ -102,7 +112,12 @@ function Main() {
       <section className="elements">
         <ul className="elements__cards">
           {cards.map((card) => (
-            <Card key={card._id} card={card} openImagePopup={handleOpenPopup} />
+            <Card
+              key={card._id}
+              card={card}
+              openImagePopup={handleOpenPopup}
+              onCardLike={handleCardLike}
+            />
           ))}
         </ul>
       </section>
