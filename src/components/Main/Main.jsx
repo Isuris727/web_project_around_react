@@ -35,6 +35,15 @@ function Main() {
     setIsLiked(!isLiked);
   };
 
+  const handleCardDelete = async (card) => {
+    card._id && (await api.deleteCard(card._id));
+
+    const idCardToDelete = card._id;
+
+    const filteredCards = cards.filter((card) => card._id !== idCardToDelete);
+    setCards(filteredCards);
+  };
+
   // --------- POPUPS -------
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
   const editAvatarPopup = {
@@ -117,6 +126,7 @@ function Main() {
               card={card}
               openImagePopup={handleOpenPopup}
               onCardLike={handleCardLike}
+              onCardDelete={handleCardDelete}
             />
           ))}
         </ul>

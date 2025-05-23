@@ -2,7 +2,7 @@ import ImagePopup from "../Popup/ImagePopup";
 
 function Card(props) {
   const { name, link, isLiked, _id } = props.card;
-  const { openImagePopup, onCardLike } = props;
+  const { openImagePopup, onCardLike, onCardDelete } = props;
 
   const openImage = { children: <ImagePopup name={name} link={link} /> };
   const cardLikeButtonClassName = `button button_type_like ${
@@ -15,6 +15,9 @@ function Card(props) {
         className="button button_type_delete"
         alt="delete button"
         src="./../images/icon_Trash.svg"
+        onClick={() => {
+          onCardDelete(props.card);
+        }}
       />
       <img
         className="card__img"
