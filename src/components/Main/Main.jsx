@@ -7,11 +7,12 @@ import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/currentUserContext";
 import { useState, useEffect, useContext, useCallback } from "react";
 
-function Main() {
-  const [popup, setPopup] = useState(null);
+function Main(props) {
+  const { onOpenPopup, onClosePopup, popup } = props;
+
   const [cards, setCards] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
-  const currentUser = useContext(CurrentUserContext);
+  const { currentUser } = useContext(CurrentUserContext);
 
   // --------- CARDS -------
   useEffect(() => {
@@ -55,14 +56,6 @@ function Main() {
     children: <EditProfile />,
   };
 
-  function handleOpenPopup(popup) {
-    setPopup(popup);
-  }
-
-  function handleClosePopup() {
-    setPopup(null);
-  }
-
   return (
     <main className="main page__main">
       <section className="profile">
@@ -70,7 +63,7 @@ function Main() {
           <div
             className="profile__overlay"
             onClick={() => {
-              handleOpenPopup(editAvatarPopup);
+              onOpenPopup(editAvatarPopup);
             }}
           >
             <img
@@ -91,7 +84,7 @@ function Main() {
                 className="button button_type_edit"
                 type="button"
                 onClick={() => {
-                  handleOpenPopup(editProfilePopup);
+                  onOpenPopup(editProfilePopup);
                 }}
               >
                 <img
@@ -108,7 +101,7 @@ function Main() {
           className="button button_type_add"
           type="button"
           onClick={() => {
-            handleOpenPopup(newCardPopup);
+            onOpenPopup(newCardPopup);
           }}
         >
           <img
@@ -124,7 +117,7 @@ function Main() {
             <Card
               key={card._id}
               card={card}
-              openImagePopup={handleOpenPopup}
+              openImagePopup={onOpenPopup}
               onCardLike={handleCardLike}
               onCardDelete={handleCardDelete}
             />
@@ -133,7 +126,7 @@ function Main() {
       </section>
 
       {popup && (
-        <Popup onClose={handleClosePopup} title={popup.title}>
+        <Popup onClose={onClosePopup} title={popup.title}>
           {popup.children}
         </Popup>
       )}
