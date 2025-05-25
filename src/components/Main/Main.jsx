@@ -5,14 +5,17 @@ import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
 import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/currentUserContext";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 
 function Main(props) {
   const { onOpenPopup, onClosePopup, popup } = props;
 
+  const { currentUser } = useContext(CurrentUserContext);
+
   const [cards, setCards] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
-  const { currentUser } = useContext(CurrentUserContext);
+
+  // --------- USERPROFILE -------
 
   // --------- CARDS -------
   useEffect(() => {

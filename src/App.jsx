@@ -7,6 +7,7 @@ import { CurrentUserContext } from "./contexts/currentUserContext";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+  // const [avatar, setAvatar] = useState(currentUser.avatar);
   const [popup, setPopup] = useState(null);
 
   // --------- User -------
@@ -23,9 +24,20 @@ function App() {
     obtainUser();
   }, []);
 
+  console.log(currentUser);
+
   const handleUpdateUser = async (data) => {
     const updatedUser = await api.updateUserInfo(data);
     setCurrentUser(updatedUser);
+    handleClosePopup();
+  };
+
+  // const handleChangeAvatar = (data) => {
+  //   setAvatar(data);
+  // };
+
+  const handleUpdateAvatar = async (data) => {
+    const updatedAvatar = await api.changeAvatar(data);
     handleClosePopup();
   };
 
@@ -39,7 +51,13 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+    <CurrentUserContext.Provider
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+      }}
+    >
       <div className="page">
         <Header />
 
