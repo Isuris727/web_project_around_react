@@ -8,42 +8,10 @@ import { CurrentUserContext } from "../../contexts/currentUserContext";
 import { useState, useEffect, useContext, useCallback } from "react";
 
 function Main(props) {
-  const { onOpenPopup, onClosePopup, popup } = props;
+  const { onOpenPopup, onClosePopup, popup, cards, onCardLike, onCardDelete } =
+    props;
 
-  const [cards, setCards] = useState([]);
-  const [isLiked, setIsLiked] = useState(false);
   const { currentUser } = useContext(CurrentUserContext);
-
-  // --------- CARDS -------
-  useEffect(() => {
-    async function obtainCardsData() {
-      try {
-        const cardsData = await api.getCardsData();
-
-        return setCards(cardsData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    obtainCardsData();
-  }, [isLiked]);
-
-  const handleCardLike = async (card) => {
-    card._id && card.isLiked
-      ? await api._dislikeCard(card._id)
-      : await api._likeCard(card._id);
-
-    setIsLiked(!isLiked);
-  };
-
-  const handleCardDelete = async (card) => {
-    card._id && (await api.deleteCard(card._id));
-
-    const idCardToDelete = card._id;
-
-    const filteredCards = cards.filter((card) => card._id !== idCardToDelete);
-    setCards(filteredCards);
-  };
 
   // --------- POPUPS -------
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
@@ -118,8 +86,8 @@ function Main(props) {
               key={card._id}
               card={card}
               openImagePopup={onOpenPopup}
-              onCardLike={handleCardLike}
-              onCardDelete={handleCardDelete}
+              onCardLike={onCardLike}
+              onCardDelete={onCardDelete}
             />
           ))}
         </ul>

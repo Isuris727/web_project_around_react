@@ -8,6 +8,8 @@ import { CurrentUserContext } from "./contexts/currentUserContext";
 function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [popup, setPopup] = useState(null);
+  const [cards, setCards] = useState([]);
+  const [isLiked, setIsLiked] = useState(false);
 
   // --------- User -------
   useEffect(() => {
@@ -29,6 +31,37 @@ function App() {
     handleClosePopup();
   };
 
+  // --------- CARDS -------
+  const cardsData = useEffect(() => {
+    async function obtainCardsData() {
+      try {
+        const cardsData = await api.getCardsData();
+
+        return setCards(cardsData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    obtainCardsData();
+  }, [isLiked]);
+
+  const handleCardLike = async (card) => {
+    card._id && card.isLiked
+      ? await api._dislikeCard(card._id)
+      : await api._likeCard(card._id);
+
+    setIsLiked(!isLiked);
+  };
+
+  const handleCardDelete = async (card) => {
+    card._id && (await api.deleteCard(card._id));
+
+    const idCardToDelete = card._id;
+
+    const filteredCards = cards.filter((card) => card._id !== idCardToDelete);
+    setCards(filteredCards);
+  };
+
   // --------- POPUPS -------
   function handleOpenPopup(popup) {
     setPopup(popup);
@@ -47,6 +80,9 @@ function App() {
           onOpenPopup={handleOpenPopup}
           onClosePopup={handleClosePopup}
           popup={popup}
+          cards={cards}
+          onCardLike={handleCardLike}
+          onCardDelete={handleCardDelete}
         />
 
         <Footer />
