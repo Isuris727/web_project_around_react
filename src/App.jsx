@@ -51,18 +51,18 @@ function App() {
     obtainCardsData();
   }, [isLiked]);
 
+  const handleAddCard = async (data) => {
+    const addedCard = await api.addCardData(data);
+    setCards([addedCard, ...cards]);
+    handleClosePopup();
+  };
+
   const handleCardLike = async (card) => {
     card._id && card.isLiked
       ? await api._dislikeCard(card._id)
       : await api._likeCard(card._id);
 
     setIsLiked(!isLiked);
-  };
-
-  const handleAddCard = async (data) => {
-    const addedCard = await api.addCardData(data);
-    setCards([addedCard, ...cards]);
-    handleClosePopup();
   };
 
   const handleCardDelete = async (card) => {

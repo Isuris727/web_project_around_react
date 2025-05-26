@@ -56,23 +56,6 @@ function Main(props) {
     obtainCardsData();
   }, [isLiked]);
 
-  const handleCardLike = async (card) => {
-    card._id && card.isLiked
-      ? await api._dislikeCard(card._id)
-      : await api._likeCard(card._id);
-
-    setIsLiked(!isLiked);
-  };
-
-  const handleCardDelete = async (card) => {
-    card._id && (await api.deleteCard(card._id));
-
-    const idCardToDelete = card._id;
-
-    const filteredCards = cards.filter((card) => card._id !== idCardToDelete);
-    setCards(filteredCards);
-  };
-
   // --------- POPUPS -------
   const newCardPopup = {
     title: "Nuevo Lugar",
