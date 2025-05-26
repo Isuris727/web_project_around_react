@@ -8,13 +8,27 @@ import { CurrentUserContext } from "../../contexts/currentUserContext";
 import { useState, useEffect, useContext, useCallback } from "react";
 
 function Main(props) {
-  const { onOpenPopup, onClosePopup, popup, cards, onCardLike, onCardDelete } =
-    props;
+  const {
+    onOpenPopup,
+    onClosePopup,
+    popup,
+    cards,
+    onCardLike,
+    onCardDelete,
+    onAddCard,
+  } = props;
 
   const { currentUser } = useContext(CurrentUserContext);
 
+  const onAddCardSubmit = async (cardData) => {
+    const newCard = await onAddCard(cardData);
+  };
+
   // --------- POPUPS -------
-  const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
+  const newCardPopup = {
+    title: "Nuevo Lugar",
+    children: <NewCard onAddCardSubmit={onAddCardSubmit} />,
+  };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
     children: <EditAvatar />,

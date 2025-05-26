@@ -32,7 +32,7 @@ function App() {
   };
 
   // --------- CARDS -------
-  const cardsData = useEffect(() => {
+  useEffect(() => {
     async function obtainCardsData() {
       try {
         const cardsData = await api.getCardsData();
@@ -51,6 +51,12 @@ function App() {
       : await api._likeCard(card._id);
 
     setIsLiked(!isLiked);
+  };
+
+  const handleAddCard = async (data) => {
+    const addedCard = await api.addCardData(data);
+    setCards([addedCard, ...cards]);
+    handleClosePopup();
   };
 
   const handleCardDelete = async (card) => {
@@ -83,6 +89,7 @@ function App() {
           cards={cards}
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
+          onAddCard={handleAddCard}
         />
 
         <Footer />
