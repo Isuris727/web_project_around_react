@@ -1,5 +1,5 @@
 import { useState, useContext, useRef } from "react";
-import { CurrentUserContext } from "../../../../../contexts/currentUserContext";
+import { CurrentUserContext } from "../../../../../contexts/CurrentUserContext";
 
 function EditAvatar(props) {
   const { onChangeAvatar } = props;

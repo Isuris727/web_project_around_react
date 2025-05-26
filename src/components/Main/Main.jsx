@@ -4,7 +4,7 @@ import EditProfile from "./Popup/Form/EditProfile/EditProfile";
 import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
 import api from "../../utils/api";
-import { CurrentUserContext } from "../../contexts/currentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import { useState, useEffect, useContext } from "react";
 
 function Main(props) {
