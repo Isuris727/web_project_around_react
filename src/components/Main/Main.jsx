@@ -11,11 +11,29 @@ function Main(props) {
   const { onOpenPopup, onClosePopup, popup } = props;
 
   const { currentUser } = useContext(CurrentUserContext);
-
+  const [avatar, setAvatar] = useState(currentUser.avatar);
   const [cards, setCards] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
 
   // --------- USERPROFILE -------
+
+  useEffect(() => {
+    async function updateAvatar(data) {
+      try {
+        const updatedAvatar = await api.getUserInfo();
+
+        setAvatar(updatedAvatar.avatar);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    updateAvatar();
+  }, [avatar]);
+
+  const onChangeAvatar = async () => {
+    const updatedAvatar = await api.getUserInfo();
+    return setAvatar(updatedAvatar.avatar);
+  };
 
   // --------- CARDS -------
   useEffect(() => {
@@ -52,7 +70,7 @@ function Main(props) {
   const newCardPopup = { title: "Nuevo Lugar", children: <NewCard /> };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
-    children: <EditAvatar />,
+    children: <EditAvatar onChangeAvatar={onChangeAvatar} />,
   };
   const editProfilePopup = {
     title: "Editar perfil",
@@ -74,11 +92,7 @@ function Main(props) {
               alt="editar"
               src="./../images/Vector_edit.png"
             />
-            <img
-              className="profile__img"
-              alt="Imagen de perfil"
-              src={currentUser.avatar}
-            />
+            <img className="profile__img" alt="Imagen de perfil" src={avatar} />
           </div>
           <div className="profile__info">
             <div className="profile__title">

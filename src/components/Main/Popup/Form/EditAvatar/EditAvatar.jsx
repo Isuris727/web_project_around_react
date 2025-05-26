@@ -8,13 +8,13 @@ function EditAvatar(props) {
 
   const avatarLinkRef = useRef();
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    handleUpdateAvatar({
+
+    await handleUpdateAvatar({
       avatar: avatarLinkRef.current.value,
     });
-    // onChangeAvatar(avatarLinkRef.current.values);
-    // return avatarLinkRef.current.value;
+    onChangeAvatar();
   };
 
   return (
