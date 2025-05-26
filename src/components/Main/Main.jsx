@@ -5,7 +5,7 @@ import Card from "./Card/Card";
 import Popup from "./Popup/Popup";
 import api from "../../utils/api";
 import { CurrentUserContext } from "../../contexts/currentUserContext";
-import { useState, useEffect, useContext, useCallback } from "react";
+import { useState, useEffect, useContext } from "react";
 
 function Main(props) {
   const {
@@ -19,19 +19,68 @@ function Main(props) {
   } = props;
 
   const { currentUser } = useContext(CurrentUserContext);
+  const [avatar, setAvatar] = useState(currentUser.avatar);
+  const [isLiked, setIsLiked] = useState(false);
 
-  const onAddCardSubmit = async (cardData) => {
-    const newCard = await onAddCard(cardData);
+  // --------- USERPROFILE -------
+
+  useEffect(() => {
+    async function updateAvatar(data) {
+      try {
+        const updatedAvatar = await api.getUserInfo();
+
+        setAvatar(updatedAvatar.avatar);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    updateAvatar();
+  }, [avatar]);
+
+  const onChangeAvatar = async () => {
+    const updatedAvatar = await api.getUserInfo();
+    return setAvatar(updatedAvatar.avatar);
+  };
+
+  // --------- CARDS -------
+  useEffect(() => {
+    async function obtainCardsData() {
+      try {
+        const cardsData = await api.getCardsData();
+
+        return setCards(cardsData);
+      } catch (error) {
+        console.log(error);
+      }
+    }
+    obtainCardsData();
+  }, [isLiked]);
+
+  const handleCardLike = async (card) => {
+    card._id && card.isLiked
+      ? await api._dislikeCard(card._id)
+      : await api._likeCard(card._id);
+
+    setIsLiked(!isLiked);
+  };
+
+  const handleCardDelete = async (card) => {
+    card._id && (await api.deleteCard(card._id));
+
+    const idCardToDelete = card._id;
+
+    const filteredCards = cards.filter((card) => card._id !== idCardToDelete);
+    setCards(filteredCards);
   };
 
   // --------- POPUPS -------
   const newCardPopup = {
     title: "Nuevo Lugar",
-    children: <NewCard onAddCardSubmit={onAddCardSubmit} />,
+    children: <NewCard onAddCardSubmit={onAddCard} />,
   };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
-    children: <EditAvatar />,
+    children: <EditAvatar onChangeAvatar={onChangeAvatar} />,
   };
   const editProfilePopup = {
     title: "Editar perfil",
@@ -53,11 +102,7 @@ function Main(props) {
               alt="editar"
               src="./../images/Vector_edit.png"
             />
-            <img
-              className="profile__img"
-              alt="Imagen de perfil"
-              src={currentUser.avatar}
-            />
+            <img className="profile__img" alt="Imagen de perfil" src={avatar} />
           </div>
           <div className="profile__info">
             <div className="profile__title">

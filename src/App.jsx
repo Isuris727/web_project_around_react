@@ -7,6 +7,7 @@ import { CurrentUserContext } from "./contexts/currentUserContext";
 
 function App() {
   const [currentUser, setCurrentUser] = useState({});
+
   const [popup, setPopup] = useState(null);
   const [cards, setCards] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
@@ -28,6 +29,11 @@ function App() {
   const handleUpdateUser = async (data) => {
     const updatedUser = await api.updateUserInfo(data);
     setCurrentUser(updatedUser);
+    handleClosePopup();
+  };
+
+  const handleUpdateAvatar = async (data) => {
+    const updatedAvatar = await api.changeAvatar(data);
     handleClosePopup();
   };
 
@@ -78,7 +84,13 @@ function App() {
   }
 
   return (
-    <CurrentUserContext.Provider value={{ currentUser, handleUpdateUser }}>
+    <CurrentUserContext.Provider
+      value={{
+        currentUser,
+        handleUpdateUser,
+        handleUpdateAvatar,
+      }}
+    >
       <div className="page">
         <Header />
 
