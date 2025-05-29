@@ -14,7 +14,7 @@
   margin: auto;
   display: flex;
   flex-direction: column;
-  align-content: stretch;
+  /* align-content: stretch; */
 }
 
 .popup__form {
@@ -29,6 +29,7 @@
 
 .popup__img {
   max-width: 100%;
+  max-height: 100%;
 }
 
 .popup__card-name {

@@ -21,5 +21,6 @@
   }
   .elements__card {
     margin: auto;
+    width: 100%;
   }
 }

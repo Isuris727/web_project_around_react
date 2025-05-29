@@ -20,12 +20,12 @@ function Main(props) {
 
   const { currentUser } = useContext(CurrentUserContext);
   const [avatar, setAvatar] = useState(currentUser.avatar);
-  const [isLiked, setIsLiked] = useState(false);
+  // const [isLiked, setIsLiked] = useState(false);
 
   // --------- USERPROFILE -------
 
   useEffect(() => {
-    async function updateAvatar(data) {
+    async function updateAvatar() {
       try {
         const updatedAvatar = await api.getUserInfo();
 
@@ -43,18 +43,18 @@ function Main(props) {
   };
 
   // --------- CARDS -------
-  useEffect(() => {
-    async function obtainCardsData() {
-      try {
-        const cardsData = await api.getCardsData();
+  // useEffect(() => {
+  //   async function obtainCardsData() {
+  //     try {
+  //       const cardsData = await api.getCardsData();
 
-        return setCards(cardsData);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    obtainCardsData();
-  }, [isLiked]);
+  //       return setCards(cardsData);
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   }
+  //   obtainCardsData();
+  // }, [isLiked]);
 
   // --------- POPUPS -------
   const newCardPopup = {
