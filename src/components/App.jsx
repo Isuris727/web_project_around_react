@@ -83,6 +83,11 @@ function App() {
     setPopup(null);
   }
 
+  function handleEscKeyDown(event) {
+    // event.key === "Escape" && onClose;
+    console.log(event.key);
+  }
+
   return (
     <CurrentUserContext.Provider
       value={{
@@ -102,6 +107,7 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           onAddCard={handleAddCard}
+          onKeyDown={handleEscKeyDown}
         />
 
         <Footer />

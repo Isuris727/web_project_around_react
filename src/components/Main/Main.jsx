@@ -20,7 +20,6 @@ function Main(props) {
 
   const { currentUser } = useContext(CurrentUserContext);
   const [avatar, setAvatar] = useState(currentUser.avatar);
-  // const [isLiked, setIsLiked] = useState(false);
 
   // --------- USERPROFILE -------
 
@@ -41,20 +40,6 @@ function Main(props) {
     const updatedAvatar = await api.getUserInfo();
     return setAvatar(updatedAvatar.avatar);
   };
-
-  // --------- CARDS -------
-  // useEffect(() => {
-  //   async function obtainCardsData() {
-  //     try {
-  //       const cardsData = await api.getCardsData();
-
-  //       return setCards(cardsData);
-  //     } catch (error) {
-  //       console.log(error);
-  //     }
-  //   }
-  //   obtainCardsData();
-  // }, [isLiked]);
 
   // --------- POPUPS -------
   const newCardPopup = {

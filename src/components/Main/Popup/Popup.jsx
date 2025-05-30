@@ -1,15 +1,20 @@
+import { useEffect } from "react";
+
 function Popup(props) {
   const { onClose, title, children } = props;
 
+  // useEffect(() => {
   function handleEscKeyDown(event) {
     // event.key === "Escape" && onClose;
     console.log(event.key);
   }
+  //   handleEscKeyDown(event);
+  // }, []);
+
+  // ya probé tabIndex y contentEditable en los atributos de la etiqueta
 
   return (
-    <div className="popup" onKeyDown={handleEscKeyDown}>
-      {" "}
-      // ya probé tabIndex y contentEditable{" "}
+    <div className="popup">
       <div className="popup__container">
         <button
           className="button button_type_close"

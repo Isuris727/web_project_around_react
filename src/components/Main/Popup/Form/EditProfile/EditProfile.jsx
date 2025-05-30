@@ -8,14 +8,11 @@ function EditProfile() {
   const [description, setDescription] = useState(currentUser.about);
 
   const handleNameChange = (event) => {
-    const newName = event.target.value;
-    console.log(newName.trim());
-    // newName.trim() !== "" ? setName(newName) : console.log("espacio en blanco");
-    // setName(event.target.value);
+    setName(event.target.value.trimStart());
   };
 
   const handleDescriptionChange = (event) => {
-    setDescription(event.target.value);
+    setDescription(event.target.value.trimStart());
   };
 
   const handleSubmit = (event) => {
