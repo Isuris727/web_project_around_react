@@ -103,7 +103,6 @@ function App() {
           onCardLike={handleCardLike}
           onCardDelete={handleCardDelete}
           onAddCard={handleAddCard}
-          onKeyDown={handleEscKeyDown}
         />
 
         <Footer />
