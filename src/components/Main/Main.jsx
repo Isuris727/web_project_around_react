@@ -19,27 +19,6 @@ function Main(props) {
   } = props;
 
   const { currentUser } = useContext(CurrentUserContext);
-  const [avatar, setAvatar] = useState(currentUser.avatar);
-
-  // --------- USERPROFILE -------
-
-  useEffect(() => {
-    async function updateAvatar() {
-      try {
-        const updatedAvatar = await api.getUserInfo();
-
-        setAvatar(updatedAvatar.avatar);
-      } catch (error) {
-        console.log(error);
-      }
-    }
-    updateAvatar();
-  }, [avatar]);
-
-  const onChangeAvatar = async () => {
-    const updatedAvatar = await api.getUserInfo();
-    return setAvatar(updatedAvatar.avatar);
-  };
 
   // --------- POPUPS -------
   const newCardPopup = {
@@ -48,7 +27,7 @@ function Main(props) {
   };
   const editAvatarPopup = {
     title: "Cambiar foto de perfil",
-    children: <EditAvatar onChangeAvatar={onChangeAvatar} />,
+    children: <EditAvatar />,
   };
   const editProfilePopup = {
     title: "Editar perfil",
@@ -70,7 +49,11 @@ function Main(props) {
               alt="editar"
               src="./../images/Vector_edit.png"
             />
-            <img className="profile__img" alt="Imagen de perfil" src={avatar} />
+            <img
+              className="profile__img"
+              alt="Imagen de perfil"
+              src={currentUser.avatar}
+            />
           </div>
           <div className="profile__info">
             <div className="profile__title">

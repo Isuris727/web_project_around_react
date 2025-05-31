@@ -13,23 +13,10 @@ function NewCard(props) {
     setLink(event.target.value);
   };
 
-  // const handleAddCardInfo = (event) => {
-  //   setTitle(newCardForm["card-title-input"].value);
-  //   setLink(newCardForm["card-url-input"].value);
-  // };
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    // en EditProfile ejecuta el metodo de App que llama a la api y que fue recibido del contexto
-    // console.log(newCardForm["card-title-input"].value);
-
-    // handleAddCardInfo();
-    // console.log("title ->", name, "link ->", link);
     onAddCardSubmit({ name, link });
   };
-  //   // console.log(form.value);
-  //   //
-  // };
 
   return (
     <form

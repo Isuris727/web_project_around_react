@@ -1,9 +1,7 @@
 import { useState, useContext, useRef } from "react";
 import { CurrentUserContext } from "../../../../../contexts/CurrentUserContext";
 
-function EditAvatar(props) {
-  const { onChangeAvatar } = props;
-
+function EditAvatar() {
   const { handleUpdateAvatar } = useContext(CurrentUserContext);
 
   const avatarLinkRef = useRef();
@@ -14,7 +12,6 @@ function EditAvatar(props) {
     await handleUpdateAvatar({
       avatar: avatarLinkRef.current.value,
     });
-    onChangeAvatar();
   };
 
   return (

@@ -12,7 +12,7 @@ function App() {
   const [cards, setCards] = useState([]);
   const [isLiked, setIsLiked] = useState(false);
 
-  // --------- User -------
+  // --------- USER -------
   useEffect(() => {
     async function obtainUser() {
       try {
@@ -33,7 +33,8 @@ function App() {
   };
 
   const handleUpdateAvatar = async (data) => {
-    const updatedAvatar = await api.changeAvatar(data);
+    const updatedUser = await api.changeAvatar(data);
+    setCurrentUser(updatedUser);
     handleClosePopup();
   };
 
@@ -81,11 +82,6 @@ function App() {
 
   function handleClosePopup() {
     setPopup(null);
-  }
-
-  function handleEscKeyDown(event) {
-    // event.key === "Escape" && onClose;
-    console.log(event.key);
   }
 
   return (

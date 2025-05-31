@@ -3,16 +3,6 @@ import { useEffect } from "react";
 function Popup(props) {
   const { onClose, title, children } = props;
 
-  // useEffect(() => {
-  function handleEscKeyDown(event) {
-    // event.key === "Escape" && onClose;
-    console.log(event.key);
-  }
-  //   handleEscKeyDown(event);
-  // }, []);
-
-  // ya probé tabIndex y contentEditable en los atributos de la etiqueta
-
   return (
     <div className="popup">
       <div className="popup__container">
